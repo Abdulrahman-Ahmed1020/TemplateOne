@@ -6,9 +6,9 @@ let mainColor = localStorage.getItem('main_color'),
   myIcon = document.querySelector('.icon'),
   landingPage = document.querySelector('.landing-page'),
   imagesArray = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg'],
-  randomInterval;
-
-
+  randomInterval,
+  skills = document.querySelector('.skills'),
+  images = document.querySelectorAll('img');
 // Check Local Storage
 if (mainColor !== null) {
   // Set Color 
@@ -27,8 +27,6 @@ window.onload = () => {
   if (mainRandom !== null) {
     if (mainRandom === 'no') {
       clearInterval(randomInterval);
-    } else {
-      console.log('hello world');
     }
     // Set or Remove Active Class For random 
     for (sp of random) {
@@ -96,4 +94,64 @@ function backInt() {
     landingPage.style.backgroundImage = `url(../images/${imagesArray[randomNumber]})`;
   }, 3000);
 }
-backInt()
+backInt();
+
+window.onscroll = () => {
+  let skillsHeight = skills.offsetHeight;
+  let skillsScroll = skills.offsetTop;
+  let windowHeight = this.innerHeight;
+  let scrollPage = this.pageYOffset;
+  let all = skillsScroll + skillsHeight - windowHeight;
+  let allSkills = document.querySelectorAll('.skill-progress span');
+  if (scrollPage > (all)) {
+    allSkills.forEach(skill => {
+      skill.style.width = skill.dataset.progress;
+    })
+  }
+}
+
+images.forEach((img) => {
+  img.addEventListener('click', (e) => {
+    // Create Overlay
+    let overlay = document.createElement('div');
+    overlay.className = 'pupop-overlay';
+
+    // Add Overlay to Body
+    document.body.appendChild(overlay);
+
+    // Create PupopBox 
+    let pupopBox = document.createElement('div');
+    pupopBox.className = 'pupop-box';
+
+    // Add Heading to Pupop
+    if (img.alt !== null) {
+      let headingPupop = document.createElement('h3');
+      let textHeading = document.createTextNode(img.alt);
+      headingPupop.appendChild(textHeading);
+      pupopBox.appendChild(headingPupop);
+    }
+
+    // Add Image to Pupop
+    let imagePupop = document.createElement('img');
+    imagePupop.src = img.src;
+    pupopBox.appendChild(imagePupop);
+
+
+    // Add Close Button 
+    let closeBtn = document.createElement('span');
+    let textBtn = document.createTextNode('x');
+    closeBtn.appendChild(textBtn);
+    closeBtn.className = "close-btn";
+    pupopBox.appendChild(closeBtn);
+
+    // Add Pupop to Body
+    document.body.appendChild(pupopBox);
+  })
+})
+
+document.addEventListener('click', (e) => {
+  if (e.target.className == 'close-btn') {
+    e.target.parentNode.remove();
+    document.querySelector('.pupop-overlay').remove();
+  }
+})
