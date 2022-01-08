@@ -1,0 +1,234 @@
+:root {
+  --main-color: #ffeb3b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+/* Start Setting Box */
+.setting-box {
+  min-height: 100vh;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: -200px;
+  z-index: 1000;
+  background-color: #fff;
+  transition: 0.7s;
+}
+
+.container {
+  padding: 0 20px;
+  margin: auto;
+}
+
+.setting-box.open {
+  left: 0;
+}
+
+.setting-box .edit-icon {
+  position: absolute;
+  top: 100px;
+  right: -30px;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+}
+.setting-box .edit-icon .icon {
+  width: 30px;
+  padding: 8px 0;
+}
+
+.setting-box .setting-options {
+  padding: 0 10px;
+}
+
+.setting-box .setting-options .option-box {
+  background-color: #eee;
+  text-align: center;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.setting-box .setting-options h4 {
+  font-size: 14px;
+  margin: 10px;
+}
+
+.setting-box .setting-options .colors {
+  padding: 0;
+}
+
+.setting-box .setting-options .colors li {
+  list-style: none;
+  background-color: var(--main-color);
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border-radius: 50%;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.setting-box .setting-options .colors li.active {
+  opacity: 1;
+  border: solid 3px #fff;
+}
+
+.setting-box .setting-options .colors li:first-child {
+  background-color: #ffeb3b;
+}
+
+.setting-box .setting-options .colors li:nth-child(2) {
+  background-color: #00a070;
+}
+
+.setting-box .setting-options .colors li:nth-child(3) {
+  background-color: #ff00dd;
+}
+
+.setting-box .setting-options .colors li:nth-child(4) {
+  background-color: #f00;
+}
+
+.setting-box .setting-options .colors li:nth-child(5) {
+  background-color: #006eff;
+}
+
+.setting-box .random span {
+  font-size: 12px;
+  background-color: teal;
+  opacity: 0.5;
+  padding: 2px 15px;
+  margin: 0 2px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.setting-box .random span.active {
+  opacity: 1;
+}
+/* End Setting Box */
+
+/* Start Landing Page */
+.landing-page {
+  min-height: 100vh;
+  background-image: url(../images/01.jpg);
+  background-size: cover;
+  position: relative;
+}
+
+.landing-page .overlay {
+  background-color: #0006;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.landing-page .header-area {
+  position: relative;
+  color: white;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.landing-page .logo {
+  font-weight: bold;
+  font-size: 18px;
+  width: 300px;
+}
+
+.landing-page .links {
+  list-style: none;
+  text-align: right;
+  width: 100%;
+  font-size: 15px;
+}
+
+.landing-page .links li {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.landing-page .links li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.landing-page .links li a:hover,
+.landing-page .links li .active {
+  color: var(--main-color);
+  transition: 0.3s;
+}
+
+.introducation-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+  width: 80%;
+}
+
+.introducation-text h1 {
+  font-size: 34px;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+
+.introducation-text h1 span {
+  color: var(--main-color);
+}
+
+.introducation-text p {
+  line-height: 1.6;
+  font-size: 20px;
+  margin: 0;
+}
+/* End Landing Page */
+
+/* Start About Us  */
+.about-us {
+  display: flex;
+  padding: 50px 0;
+}
+
+.about-us .info-box {
+  flex: 1;
+  padding: 30px;
+}
+
+.about-us .info-box h2 {
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.about-us .info-box p {
+  line-height: 1.8;
+  color: #767676;
+  margin: 0px;
+}
+
+.about-us .about-image {
+  width: 50%;
+  text-align: center;
+}
+
+.about-us .about-image img {
+  width: 50%;
+}
+
+/* End About Us  */
