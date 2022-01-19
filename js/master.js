@@ -1,20 +1,22 @@
 // Varible
 let mainColor = localStorage.getItem('main_color'),
   mainRandom = localStorage.getItem('main_random'),
+  mainBullet = localStorage.getItem('main_bullet'),
   colorls = document.querySelectorAll('.colors li'),
   random = document.querySelectorAll('.random span'),
+  bull = document.querySelectorAll('.bullet1 span'),
   myIcon = document.querySelector('.icon'),
   landingPage = document.querySelector('.landing-page'),
   imagesArray = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg'],
   randomInterval,
   skills = document.querySelector('.skills'),
-  images = document.querySelectorAll('img');
+  images = document.querySelectorAll('img'),
+  myBullets = document.querySelectorAll('.bullet'),
+  myLinks = document.querySelectorAll('.links a');
+
 // Check Local Storage
 if (mainColor !== null) {
-  // Set Color 
   document.documentElement.style.setProperty('--main-color', mainColor);
-
-  // Set or Remove Active Class For Colors 
   for (col of colorls) {
     if (col.getAttribute('data-color') === mainColor) {
       col.classList.add('active');
@@ -23,12 +25,12 @@ if (mainColor !== null) {
     }
   }
 }
+
 window.onload = () => {
   if (mainRandom !== null) {
     if (mainRandom === 'no') {
       clearInterval(randomInterval);
     }
-    // Set or Remove Active Class For random 
     for (sp of random) {
       if (sp.getAttribute('data-random') === mainRandom) {
         sp.classList.add('active');
@@ -38,64 +40,61 @@ window.onload = () => {
     }
   }
 }
+
+if (mainBullet !== null) {
+  bull.forEach(span => {
+    span.classList.remove('active');
+  })
+  if (mainBullet === 'block') {
+    document.querySelector('.bullet1 span.yes').classList.add('active');
+    document.querySelector('.bullets').style.display = 'block';
+
+  } else if (mainBullet === 'none') {
+    document.querySelector('.bullet1 span.no').classList.add('active');
+    document.querySelector('.bullets').style.display = 'none';
+  }
+}
 // Open Setting
 myIcon.onclick = () => {
-  // make the setting icon reycle
   myIcon.classList.toggle('fa-spin');
-
-  // add open class for setting box
   document.querySelector('.setting-box').classList.toggle('open');
 }
 
 // Choise Color
 colorls.forEach(li => {
   li.onclick = (e) => {
-    // set color page
     document.documentElement.style.setProperty('--main-color', e.target.dataset.color);
-
-    // send color to localStorage
     localStorage.setItem('main_color', e.target.dataset.color);
-
-    // add or remove active class for color
-    for (col of colorls) {
-      col.classList.remove('active');
-    }
-
-    e.target.classList.add('active');
+    handelActive(e);
   }
 });
 
 // Choise Random
 random.forEach(span => {
   span.onclick = (e) => {
-    // send random to localStorage
     localStorage.setItem('main_random', e.target.dataset.random);
-
-    // add or remove active class for random
-    for (sp of random) {
-      sp.classList.remove('active');
-    }
-
-    e.target.classList.add('active');
-
+    handelActive(e);
     if (e.target.dataset.random === 'yes') {
       backInt();
     } else {
       clearInterval(randomInterval);
     }
   }
-
 });
 
-// Change Background Image
-function backInt() {
-  randomInterval = setInterval(() => {
-    let randomNumber = Math.floor(Math.random() * imagesArray.length);
-    landingPage.style.backgroundImage = `url(../images/${imagesArray[randomNumber]})`;
-  }, 3000);
-}
-backInt();
-
+// Choise bullets 
+bull.forEach(span => {
+  span.addEventListener('click', (e) => {
+    if (span.dataset.bullet === 'block') {
+      localStorage.setItem('main_bullet', 'block');
+      document.querySelector('.bullets').style.display = 'block';
+    } else {
+      localStorage.setItem('main_bullet', 'none');
+      document.querySelector('.bullets').style.display = 'none';
+    };
+    handelActive(e);
+  })
+})
 window.onscroll = () => {
   let skillsHeight = skills.offsetHeight;
   let skillsScroll = skills.offsetTop;
@@ -112,39 +111,25 @@ window.onscroll = () => {
 
 images.forEach((img) => {
   img.addEventListener('click', (e) => {
-    // Create Overlay
     let overlay = document.createElement('div');
     overlay.className = 'pupop-overlay';
-
-    // Add Overlay to Body
     document.body.appendChild(overlay);
-
-    // Create PupopBox 
     let pupopBox = document.createElement('div');
     pupopBox.className = 'pupop-box';
-
-    // Add Heading to Pupop
     if (img.alt !== null) {
       let headingPupop = document.createElement('h3');
       let textHeading = document.createTextNode(img.alt);
       headingPupop.appendChild(textHeading);
       pupopBox.appendChild(headingPupop);
     }
-
-    // Add Image to Pupop
     let imagePupop = document.createElement('img');
     imagePupop.src = img.src;
     pupopBox.appendChild(imagePupop);
-
-
-    // Add Close Button 
     let closeBtn = document.createElement('span');
     let textBtn = document.createTextNode('x');
     closeBtn.appendChild(textBtn);
     closeBtn.className = "close-btn";
     pupopBox.appendChild(closeBtn);
-
-    // Add Pupop to Body
     document.body.appendChild(pupopBox);
   })
 })
@@ -155,3 +140,37 @@ document.addEventListener('click', (e) => {
     document.querySelector('.pupop-overlay').remove();
   }
 })
+
+document.querySelector('.reset').onclick = () => {
+  localStorage.clear();
+  window.location.reload();
+}
+// Change Background Image
+function backInt() {
+  randomInterval = setInterval(() => {
+    let randomNumber = Math.floor(Math.random() * imagesArray.length);
+    landingPage.style.backgroundImage = `url(../images/${imagesArray[randomNumber]})`;
+  }, 3000);
+}
+
+function scrollInView(el) {
+  el.forEach(ele => {
+    ele.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector(e.target.dataset.section).scrollIntoView({
+        behavior: 'smooth'
+      })
+    })
+  })
+}
+
+function handelActive(e) {
+  e.target.parentElement.querySelectorAll('.active').forEach(el => {
+    el.classList.remove('active');
+  })
+  e.target.classList.add('active');
+}
+
+backInt();
+scrollInView(myBullets);
+scrollInView(myLinks);
