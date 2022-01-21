@@ -9,6 +9,10 @@
 body {
   font-family: "Open Sans", sans-serif;
 }
+
+.container {
+  margin: auto;
+}
 /* Start Setting Box */
 .setting-box {
   min-height: 100vh;
@@ -16,15 +20,10 @@ body {
   position: fixed;
   top: 0;
   left: -200px;
-  z-index: 1000;
+  z-index: 1001;
   background-color: #fff;
   transition: 0.7s;
   border: 1px solid #eee;
-}
-
-.container {
-  padding: 0 150px;
-  margin: auto;
 }
 
 .setting-box.open {
@@ -189,6 +188,11 @@ body {
   position: relative;
 }
 
+.landing-page .container {
+  position: relative;
+  z-index: 1000;
+}
+
 .landing-page .overlay {
   background-color: #0006;
   width: 100%;
@@ -205,7 +209,7 @@ body {
   z-index: 2;
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .landing-page .logo {
@@ -214,11 +218,42 @@ body {
   width: 300px;
 }
 
-.landing-page .links {
-  list-style: none;
-  text-align: right;
+.landing-page .links-container {
   width: 100%;
-  font-size: 15px;
+}
+
+@media (max-width: 991px) {
+  .landing-page .links {
+    display: none;
+  }
+
+  .landing-page .btnLogo {
+    display: block;
+  }
+
+  .landing-page .links.open {
+    display: block;
+    background-color: #fff;
+    width: 100%;
+    position: absolute;
+    top: 35px;
+    left: 25px;
+    border-radius: 4px;
+  }
+
+  .landing-page .links.open li {
+    display: block;
+    margin: 10px;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .landing-page .links.open li a {
+    color: var(--main-color);
+  }
+}
+.landing-page .links {
+  text-align: right;
 }
 
 .landing-page .links li {
@@ -237,6 +272,34 @@ body {
   transition: 0.3s;
 }
 
+.btnLogo {
+  position: relative;
+  right: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.btnLogo::before {
+  content: "";
+  border: 10px solid;
+  border-color: transparent transparent #fff transparent;
+  position: absolute;
+  top: 12px;
+  pointer-events: none;
+  display: none;
+}
+
+.btnLogo.menu-active::before {
+  display: block;
+}
+
+.btnLogo div {
+  background-color: #fff;
+  width: 20px;
+  height: 3px;
+  margin: 3px auto;
+}
+
 .introducation-text {
   position: absolute;
   top: 50%;
@@ -245,13 +308,19 @@ body {
   transform: translate(-50%, -50%);
   color: #fff;
   text-align: center;
-  width: 80%;
+  width: 95%;
 }
 
 .introducation-text h1 {
   font-size: 34px;
   font-weight: bold;
   margin: 0 0 10px;
+}
+
+@media (max-width: 575px) {
+  .introducation-text h1 {
+    font-size: 27px;
+  }
 }
 
 .introducation-text h1 span {
@@ -263,12 +332,20 @@ body {
   font-size: 20px;
   margin: 0;
 }
+
 /* End Landing Page */
 
 /* Start About Us  */
 .about-us {
   display: flex;
   padding: 50px 0;
+}
+
+@media (max-width: 767px) {
+  .about-us {
+    display: block;
+    text-align: center;
+  }
 }
 
 .about-us .info-box {
@@ -291,6 +368,12 @@ body {
 .about-us .about-image {
   width: 50%;
   text-align: center;
+}
+
+@media (max-width: 767px) {
+  .about-us .about-image {
+    width: 100%;
+  }
 }
 
 .about-us .about-image img {
@@ -317,11 +400,24 @@ body {
   display: flex;
 }
 
+@media (max-width: 767px) {
+  .skills .info-skill {
+    display: block;
+  }
+}
+
 .skills .info-skill .skill-name {
   width: 100px;
   font-weight: bold;
   line-height: 30px;
   text-align: center;
+}
+
+@media (max-width: 767px) {
+  .skills .info-skill .skill-name {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
 
 .skills .info-skill .skill-progress {
@@ -332,6 +428,12 @@ body {
   margin-left: 20px;
   position: relative;
   overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .skills .info-skill .skill-progress {
+    margin: 0;
+  }
 }
 
 .skills .info-skill .skill-progress span {
@@ -554,6 +656,18 @@ body {
   margin-bottom: 40px;
 }
 
+@media (max-width: 576px) {
+  .feature .feat-box {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .feature .feat-box {
+    width: 50%;
+  }
+}
+
 .feature img {
   width: 100px;
 }
@@ -741,3 +855,30 @@ body {
   cursor: pointer;
 }
 /* End Contact Us  */
+
+/* Start grid System */
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+/* End grid System */

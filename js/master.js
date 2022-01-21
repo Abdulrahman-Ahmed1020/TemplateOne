@@ -10,7 +10,7 @@ let mainColor = localStorage.getItem('main_color'),
   imagesArray = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg'],
   randomInterval,
   skills = document.querySelector('.skills'),
-  images = document.querySelectorAll('img'),
+  images = document.querySelectorAll('.galaxy img'),
   myBullets = document.querySelectorAll('.bullet'),
   myLinks = document.querySelectorAll('.links a');
 
@@ -144,6 +144,29 @@ document.addEventListener('click', (e) => {
 document.querySelector('.reset').onclick = () => {
   localStorage.clear();
   window.location.reload();
+}
+
+let mymenu = document.querySelector('.btnLogo');
+let tlinks = document.querySelector('.links');
+
+mymenu.onclick = (e) => {
+  e.stopPropagation();
+  mymenu.classList.toggle('menu-active');
+  tlinks.classList.toggle('open');
+}
+
+tlinks.onclick = (e) => {
+  e.stopPropagation();
+}
+
+document.onclick = (e) => {
+
+  if (e.target !== mymenu && e.target !== tlinks) {
+    if (tlinks.classList.contains('open')) {
+      tlinks.classList.toggle('open');
+      mymenu.classList.toggle('menu-active');
+    }
+  }
 }
 // Change Background Image
 function backInt() {
