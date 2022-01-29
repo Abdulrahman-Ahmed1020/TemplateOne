@@ -172,7 +172,7 @@ document.onclick = (e) => {
 function backInt() {
   randomInterval = setInterval(() => {
     let randomNumber = Math.floor(Math.random() * imagesArray.length);
-    landingPage.style.backgroundImage = `url(../images/${imagesArray[randomNumber]})`;
+    landingPage.style.backgroundImage = `url(images/${imagesArray[randomNumber]})`;
   }, 3000);
 }
 
